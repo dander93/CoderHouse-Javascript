@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+</head>
+
+<body>
+
+    <h1>Gestion de empleados</h1>
+    <table>
+        <caption>Horas registradas de los empleados</caption>
+        <thead>
+            <tr>
+                <th>ID Empleado</th>
+                <th>Nombre empleado</th>
+                <th>Horas Empleado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button>Agregar Empleado</button>
+    <button>Agregar Horas a empleado</button>
+
+    <!-- Models -->
+    <script src="./js/Models/Employee.js"></script>
+    <script src="./js/Models/EmployeeTime.js"></script>
+
+    <!-- Core -->
+    <script src="./js/core/TimeManager.Core.js"></script>
+    <script src="./js/core/EmployeesManager.Core.js"></script>
+    
+    <!-- IU -->
+    <script src="./js/IU-core/IUManager.Core.js"></script>
+    <script src="./js/IU-core/IUManager.EmployeesManager.js"></script>
+    <script src="./js/IU-core/IUManager.EmployeesTimeManager.js"></script>
+    <script src="./js/IU-core/IUManager.MessageHelper.js"></script>
+
+    <!-- Main -->
+    <script src="./js/Main.js"></script>
+
+    <script>
+        new Main().init();
+    </script>
+</body>
+
+</html>
