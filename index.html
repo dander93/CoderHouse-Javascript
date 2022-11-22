@@ -5,13 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/logo.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
     <title>Main</title>
 </head>
 
 <body>
+    <!-- con tipados hubiera sufrido menos -->
 
-    <h1>Gestion de empleados</h1>
-    <table>
+    <app></app>
+
+    <!-- esto no se va a utlizar, simplemente se reemplaza con el codigo autogenerado -->
+    <!-- <h1>Gestion de empleados</h1>
+    <table id="employees">
         <caption>Horas registradas de los empleados</caption>
         <thead>
             <tr>
@@ -29,29 +37,71 @@
         </tbody>
     </table>
 
-    <button>Agregar Empleado</button>
-    <button>Agregar Horas a empleado</button>
+    <button id="add-employee">Agregar Empleado</button>
+    <button id="add-employee-hours">Agregar Horas a empleado</button> -->
+
+    <!-- esto no se va a utlizar, simplemente se reemplaza con el codigo autogenerado -->
+
+
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingresar nuevo empleado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating">
+                        <input id="nombreEmpleadoID" name="nombreEmpleado" type="text" class="form-control" required
+                            onkeydown="return /[a-z]/i.test(event.key)">
+                        <label for="nombreEmpleadoID">Nombre del empleado</label>
+                    </div>
+                    <br>
+                    <div class="form-floating">
+                        <input id="horasEmpleado" name="horasEmpleado" type="number" class="form-control" required>
+                        <label for="horasEmpleado">Horas que trabajo el empleado</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-submit-employee" type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Models -->
-    <script src="./js/Models/Employee.js"></script>
-    <script src="./js/Models/EmployeeTime.js"></script>
+    <script src="./assets/js/Models/Employee.js"></script>
+    <script src="./assets/js/Models/EmployeeTime.js"></script>
+    <script src="./assets/js/Models/MyHTMLElement.js"></script>
+    <script src="./assets/js/Models/LocalStorage.js"></script>
 
     <!-- Core -->
-    <script src="./js/core/TimeManager.Core.js"></script>
-    <script src="./js/core/EmployeesManager.Core.js"></script>
-    
+    <script src="./assets/js/core/LocalStorageManager.js"></script>
+    <script src="./assets/js/core/TimeManager.Core.js"></script>
+    <script src="./assets/js/core/EmployeesManager.Core.js"></script>
+
     <!-- IU -->
-    <script src="./js/IU-core/IUManager.Core.js"></script>
-    <script src="./js/IU-core/IUManager.EmployeesManager.js"></script>
-    <script src="./js/IU-core/IUManager.EmployeesTimeManager.js"></script>
-    <script src="./js/IU-core/IUManager.MessageHelper.js"></script>
+    <script src="./assets/js/IU-core/AppElements.Core.js"></script>
+    <script src="./assets/js/IU-core/IUManager.Core.js"></script>
+    <script src="./assets/js/IU-core/IUManager.EmployeesManager.js"></script>
+    <!-- <script src="./assets/js/IU-core/IUManager.EmployeesTimeManager.js"></script> -->
+    <!-- <script src="./assets/js/IU-core/IUManager.MessageHelper.js"></script> -->
 
     <!-- Main -->
-    <script src="./js/Main.js"></script>
+    <script src="./assets/js/Main.js"></script>
+
 
     <script>
-        new Main().init();
+        new Main();
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
 </body>
 
 </html>

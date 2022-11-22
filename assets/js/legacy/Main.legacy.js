@@ -16,7 +16,6 @@ class Main {
         let validSelection = true;
 
         do {
-            //this.printMenuHeader();
             let menuOption = parseInt(this.IUManager.promptMenuOptions());
 
             validSelection = this.menuSelection(menuOption);
@@ -56,7 +55,7 @@ class Main {
     }
 
     addEmployeeTimeMenuOption = () => {
-            do {
+        do {
             this.employeesTimeManager.addEmployeeTime(this.IUManager.employeesTimeManagerIU.getEmployeeTimeData())
         } while (window.confirm("¿Desea agregar horas a otro empleado?"));
 
