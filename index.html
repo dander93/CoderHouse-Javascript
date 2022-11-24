@@ -47,29 +47,31 @@
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" id="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingresar nuevo empleado</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
 
-                <div class="modal-body">
-                    <form class="form">
+                <form id="form-add-employee" class="form needs-validation" action="javascript: void(0);" method="POST">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingresar nuevo empleado</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
                         <div class="form-floating">
-                            <input id="nombreEmpleadoID" class="form-control" name="nombreEmpleado" placeholder="Nombre del empleado" required>
-                            <label for="nombreEmpleadoID">Nombre del empleado</label>
+                            <input id="nombreEmpleadoID" class="form-control" name="nombreEmpleado" type="text" placeholder="Nombre del empleado" minlength="4" value="" required />
+                            <label id="nombreEmpleadoIDLabel" for="nombreEmpleadoID" class="form-label">Nombre del empleado</label>
                         </div>
                         <br>
                         <div class="form-floating">
-                            <input id="horasEmpleadoID" class="form-control" name="horasEmpleado" type="number" placeholder="Horas que trabajó el empleado" required>
-                            <label for="horasEmpleadoID" class="form-label">Horas que trabajo el empleado</label>
+                            <input id="horasEmpleadoID" class="form-control" name="horasEmpleado" type="number" placeholder="Horas que trabajó el empleado" min="0" value="" required />
+                            <label id="horasEmpleadoIDLabel" for="horasEmpleadoID" class="form-label">Horas que trabajo el empleado</label>
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class="modal-footer">
-                    <button id="btn-submit-employee" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Enviar</button>
-                    <button id="btn-modal-cancel" type="button" data-bs-dismiss="modal" class="btn btn-link text-danger">Cancelar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button id="btn-modal-cancel" type="button" data-bs-dismiss="modal" class="btn btn-link text-danger text-decoration-none">Cancelar</button>
+                        <button id="btn-submit-employee" type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

@@ -71,11 +71,11 @@ class IUManagerCore
 
     addDefaultEvents = () =>
     {
-        document.querySelector("#btn-submit-employee")?.addEventListener('click', (event) => this.employeesManagerIU.addEmployee(event));
+        document.querySelector("#form-add-employee")?.addEventListener('submit', this.addEmployeeFormHandler);
 
-        document.querySelector("#btn-borrar-storage")?.addEventListener("click", (event) => window.localStorage.clear());
+        document.querySelector("#btn-borrar-storage")?.addEventListener("click", () => window.localStorage.clear());
 
-        document.querySelector("#btn-reload")?.addEventListener("click", (event) => window.location.reload());
+        document.querySelector("#btn-reload")?.addEventListener("click", () => window.location.reload());
 
         window.addEventListener("storaged", this.storageModifiedHandler);
 
@@ -115,9 +115,20 @@ class IUManagerCore
         const actions = {
             'delete': this.employeesManagerIU.deleteEmployee,
             'edit': this.employeesManagerIU.genEditEmployeeForm,
-            'default': (event) => ""
+            'default': () => ""
         }
 
         actions[event.target?.getAttribute("action") || "default"](event);
+    }
+
+    addEmployeeFormHandler = (event) =>
+    {
+        event.preventDefault();
+
+        this.employeesManagerIU.addEmployee(event);
+
+        const modalElement = document.querySelector('#staticBackdrop');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        modal.hide();
     }
 }   
