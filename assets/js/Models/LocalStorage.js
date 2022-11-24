@@ -8,6 +8,6 @@ class LocalStorage {
         this.employees = employees;
         this.employeesTime = employeesTime;
         this.htmlElements = htmlElements;
-    }
+    }                                                            
 
 }

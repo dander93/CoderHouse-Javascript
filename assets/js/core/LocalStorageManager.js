@@ -1,27 +1,39 @@
-class LocalStorageManager {
+class LocalStorageManager
+{
 
     static localStoragetKey = "employeesDasboard";
 
-    constructor() {
+    storageEvent
+
+    constructor()
+    {
+        this.storageEvent = this.storageEvent || new Event("storaged");
         this.createStorage();
     }
 
     getLocalStorageState = () => window.localStorage.getItem(LocalStorageManager.localStoragetKey);
 
-    setActualStorageState = (storage) => window.localStorage.setItem(LocalStorageManager.localStoragetKey, JSON.stringify(storage));
+    setActualStorageState = (storage) =>
+    {
+        window.localStorage.setItem(LocalStorageManager.localStoragetKey, JSON.stringify(storage));
+        window.dispatchEvent(this.storageEvent);
+    }
 
 
-    createStorage = () => {
+    createStorage = () =>
+    {
         const storageResult = window.localStorage.getItem(LocalStorageManager.localStoragetKey)
 
-        if (!storageResult) {
+        if (!storageResult)
+        {
             this.setDefaultStorage()
         }
     }
 
 
 
-    setDefaultStorage = () => {
+    setDefaultStorage = () =>
+    {
 
         const defaultLocalStorageStructure = {
             employees: [],

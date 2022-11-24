@@ -1,4 +1,5 @@
-class Main {
+class Main
+{
 
     employeesTimeManager;
     employeesManager;
@@ -7,7 +8,8 @@ class Main {
 
     StorageManager;
 
-    constructor() {
+    constructor()
+    {
         this.employeesTimeManager = this.employeesTimeManager || new EmployeesTimeManager();
         this.employeesManager = this.employeesManager || new EmployeesManager();
 
@@ -18,11 +20,8 @@ class Main {
         this.init();
     }
 
-    init = () => {
+    init = () =>
+    {
         this.IUManager.createPage();
     }
-
-
-    
-
 }
