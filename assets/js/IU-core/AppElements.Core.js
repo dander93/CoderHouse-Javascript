@@ -22,7 +22,7 @@ class AppElements
             this.defaultHTMLElementAdded = true;
 
             this.addIfNotExistInStorage(new MyHTMLElement("site-title-menu", "h1", "mainEstructure", "Gestion de empleados", "mainEstructure", 0, null, false));
-            this.addIfNotExistInStorage(new MyHTMLElement("tbl-employee", "table", "mainEstructure", null, "table table-hover", 1, null, false));
+            this.addIfNotExistInStorage(new MyHTMLElement("tbl-employee", "table", "mainEstructure", null, "table table-hover text-center", 1, null, false));
 
             //Headers tabla empleados
             this.addIfNotExistInStorage(new MyHTMLElement("tbl-header", "thead", "tbl-employee", null, null, null, null, false))
@@ -44,11 +44,9 @@ class AppElements
         }
     }
 
-    getStoragedAppElements = () => JSON.parse(this.storageManager.getLocalStorageState());
-
     addIfNotExistInStorage(elem)
     {
-        let storage = JSON.parse(this.storageManager.getLocalStorageState());
+        let storage = this.storageManager.getLocalStorageState();
 
         if (!storage.htmlElements.some(storagedItem => storagedItem.id === elem.id))
         {

@@ -12,7 +12,7 @@ class EmployeesManager
 
     addEmployee = (employeeName) =>
     {
-        let storage = JSON.parse(this.storageManager.getLocalStorageState());
+        let storage = this.storageManager.getLocalStorageState();
         let employee;
 
         if (!storage.employees.some(storagedItem => storagedItem.employeeName === employeeName))
@@ -28,22 +28,41 @@ class EmployeesManager
         return employee;
     }
 
-    deleteEmployee = (idEmpleado) =>
+    deleteEmployee = (employeeID) =>
     {
-        let storage = JSON.parse(this.storageManager.getLocalStorageState());
+        let storage = this.storageManager.getLocalStorageState();
 
-        storage.employees = storage.employees.filter(employee => employee.employeeID != idEmpleado);
-        storage.employeesTime = storage.employeesTime.filter(employeeTime => employeeTime.employeeID != idEmpleado);
-        storage.htmlElements = storage.htmlElements.filter(htmlElement => htmlElement.id.indexOf(idEmpleado) === -1)
+        storage.employees = storage.employees.filter(employee => employee.employeeID != employeeID);
+        storage.employeesTime = storage.employeesTime.filter(employeeTime => employeeTime.employeeID != employeeID);
+        storage.htmlElements = storage.htmlElements.filter(htmlElement => htmlElement.id.indexOf(employeeID) === -1)
 
         this.storageManager.setActualStorageState(storage)
     }
 
-    getEmployeeNameByID = (id) =>
+    editEmployee = (employeeID) =>
     {
-        let employee = this.employees.find(employee => employee.employeeID === id);
-        return `${employee.employeeName} ${employee.employeeLastName}`;
+        let storage = this.storageManager.getLocalStorageState();
+
+
     }
+
+    getEmployeeInformationByID = (id) =>
+    {
+        const storage = this.storageManager.getLocalStorageState();
+
+        let employee = storage.employees.find(employee => employee.employeeID === id);
+        let employeeTime = storage.employeesTime.find(employeeTime => employeeTime.employeeID === id)
+
+
+        let empleado = {
+            employeeID: employee.employeeID,
+            employeeName: employee.employeeName,
+            employeeTime: employeeTime.employeeTime
+        }
+
+        console.log(empleado)
+    }
+
 
     getEmployeesList = () => JSON.parse(this.storageManager.getLocalStorageState().employees);
 }

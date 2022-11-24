@@ -16,7 +16,7 @@ class IUManagerCore
 
     createPage = () =>
     {
-        let storage = this.appElements.getStoragedAppElements();
+        let storage = this.storageManager.getLocalStorageState();
         const entryPoint = document.querySelector(this.appElements.entryPoint);
 
         const estructure = document.createElement("div");
@@ -33,7 +33,7 @@ class IUManagerCore
 
         this.storageManager.setActualStorageState(storage);
 
-        
+
     }
 
     createELement(elem)
@@ -85,7 +85,7 @@ class IUManagerCore
     storageModifiedHandler = (event) =>
     {
 
-        let storage = JSON.parse(this.storageManager.getLocalStorageState());
+        let storage = this.storageManager.getLocalStorageState();
 
         storage.htmlElements.forEach((elem) =>
         {
@@ -112,9 +112,12 @@ class IUManagerCore
 
     rowAddClickActions = (event) =>
     {
-        if (event.target.getAttribute("action") === "delete")
-        {
-            this.employeesManagerIU.deleteEmployee(event)
+        const actions = {
+            'delete': this.employeesManagerIU.deleteEmployee,
+            'edit': this.employeesManagerIU.genEditEmployeeForm,
+            'default': (event) => ""
         }
+
+        actions[event.target?.getAttribute("action") || "default"](event);
     }
 }   

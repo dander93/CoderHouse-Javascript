@@ -14,7 +14,7 @@ class EmployeesTimeManager
     {
 
         let totalEmployeeTime;
-        let storage = JSON.parse(this.storageManager.getLocalStorageState());
+        let storage = this.storageManager.getLocalStorageState();
 
         if (!storage.employeesTime.some(storagedItem => storagedItem.employeeID === employeeTime.employeeID))
         {
@@ -23,8 +23,6 @@ class EmployeesTimeManager
 
         totalEmployeeTime = storage.employeesTime.find(employee => employee.employeeID === employeeTime.employeeID).employeeTime;
         this.storageManager.setActualStorageState(storage);
-
-
 
         return totalEmployeeTime;
     }

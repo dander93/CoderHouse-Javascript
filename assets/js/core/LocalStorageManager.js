@@ -11,7 +11,7 @@ class LocalStorageManager
         this.createStorage();
     }
 
-    getLocalStorageState = () => window.localStorage.getItem(LocalStorageManager.localStoragetKey);
+    getLocalStorageState = () => JSON.parse(window.localStorage.getItem(LocalStorageManager.localStoragetKey));
 
     setActualStorageState = (storage) =>
     {
