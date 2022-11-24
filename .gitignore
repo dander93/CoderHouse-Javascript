@@ -2,3 +2,6 @@
 jsconfig.json
 package.json
 .vs/
+package-lock.json
+/.eslintrc.js
+/node_modules
