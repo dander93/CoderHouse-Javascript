@@ -31,9 +31,9 @@ class EmployeesManager
 
     deleteEmployee = () =>
     {
-        let storage: LocalStorageManager = JSON.parse(this.storageManager.getLocalStorageState());
+        let storage = JSON.parse(this.storageManager.getLocalStorageState());
 
-        storage.
+        //storage.
     }
 
     getEmployeeNameByID = (id) =>
