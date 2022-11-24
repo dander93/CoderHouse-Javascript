@@ -130,5 +130,17 @@ class IUManagerCore
         const modalElement = document.querySelector('#staticBackdrop');
         const modal = bootstrap.Modal.getInstance(modalElement);
         modal.hide();
+
+        Toastify({
+            text: 'Empleado agregado con exito',
+            duration: 2000,
+            close: true,
+            gravity: 'bottom',
+            position: 'right',
+            stopOnFocus: true,
+            style: {
+                background: "linear-gradient(90deg, rgba(2,0,36,0.7567401960784313) 0%, rgba(9,121,67,0.9556197478991597) 18%, rgba(7,138,102,1) 69%, rgba(0,212,255,0.8575805322128851) 100%);",
+            }
+        }).showToast();
     }
 }   
