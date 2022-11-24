@@ -18,6 +18,7 @@ class Main
         this.StorageManager = this.StorageManager || new LocalStorageManager();
 
         this.init();
+        document.addEventListener('DOMContentLoaded', this.IUManager.addDefaultEvents)
     }
 
     init = () =>

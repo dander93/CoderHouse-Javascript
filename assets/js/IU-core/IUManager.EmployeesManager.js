@@ -17,6 +17,7 @@ class EmplyoeesManagerIU
     addEmployee = (event) =>
     {
         event.preventDefault();
+        event.stopPropagation();
 
         let modal = event.target.parentElement.parentElement;
 
@@ -34,9 +35,16 @@ class EmplyoeesManagerIU
         this.createEmployeeHTML(empleado, totalHorasTrabajadas);
     }
 
+    deleteEmployee = (event) =>
+    {
+        let employeeID = event.target.parentElement.parentElement.getAttribute("employee-id");
+        this.employeesManager.deleteEmployee(employeeID);
+        this.removeEmployeeHTMLByID(employeeID);
+    }
+
     createEmployeeHTML = (empleado, horasTrabajadas) =>
     {
-        
+
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`tr-employee-${empleado.employeeID}`, "tr", "tbl-body", null, null, null, `employee-id="${empleado.employeeID}"`, false));
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`id-employee-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, empleado.employeeID, null, null, null, false));
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`name-employee-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, empleado.employeeName, null, null, null, false));
@@ -44,6 +52,9 @@ class EmplyoeesManagerIU
 
         //acciones DUMMY
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`actions-container-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, null, null, null, null, false));
-        this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-delete-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Borrar", "btn btn-danger", null, null, false));
+        this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-delete-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Borrar", "btn btn-danger", null, `action="delete"`, false));
     }
+
+    removeEmployeeHTMLByID = (employeeID) => document.querySelector(`#tr-employee-${employeeID}`).remove();
+
 }

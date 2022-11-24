@@ -14,7 +14,6 @@ class EmployeesManager
     {
         let storage = JSON.parse(this.storageManager.getLocalStorageState());
         let employee;
-        //solo devuelve false en caso de no existir el empleado
 
         if (!storage.employees.some(storagedItem => storagedItem.employeeName === employeeName))
         {
@@ -29,11 +28,15 @@ class EmployeesManager
         return employee;
     }
 
-    deleteEmployee = () =>
+    deleteEmployee = (idEmpleado) =>
     {
         let storage = JSON.parse(this.storageManager.getLocalStorageState());
 
-        //storage.
+        storage.employees = storage.employees.filter(employee => employee.employeeID != idEmpleado);
+        storage.employeesTime = storage.employeesTime.filter(employeeTime => employeeTime.employeeID != idEmpleado);
+        storage.htmlElements = storage.htmlElements.filter(htmlElement => htmlElement.id.indexOf(idEmpleado) === -1)
+
+        this.storageManager.setActualStorageState(storage)
     }
 
     getEmployeeNameByID = (id) =>

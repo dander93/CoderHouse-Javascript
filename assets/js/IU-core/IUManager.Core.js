@@ -32,7 +32,8 @@ class IUManagerCore
         entryPoint.parentNode.replaceChild(estructure, entryPoint);
 
         this.storageManager.setActualStorageState(storage);
-        this.addDefaultEvents();
+
+        
     }
 
     createELement(elem)
@@ -76,18 +77,44 @@ class IUManagerCore
 
         document.querySelector("#btn-reload")?.addEventListener("click", (event) => window.location.reload());
 
-        window.addEventListener("storaged", (event) =>
+        window.addEventListener("storaged", this.storageModifiedHandler);
+
+        this.addEmployeeActionButtonsEvents();
+    }
+
+    storageModifiedHandler = (event) =>
+    {
+
+        let storage = JSON.parse(this.storageManager.getLocalStorageState());
+
+        storage.htmlElements.forEach((elem) =>
         {
-            let storage = JSON.parse(this.storageManager.getLocalStorageState());
-
-            storage.htmlElements.forEach((elem) =>
+            if (!document.querySelector(`#${elem.id}`))
             {
-                if (!document.querySelector(`#${elem.id}`))
-                {
-                    document.querySelector(`#${elem.fatherID}`).appendChild(this.createELement(elem));
-                }
-            });
 
+                const createdElement = this.createELement(elem);
+
+                document.querySelector(`#${elem.fatherID}`).appendChild(createdElement);
+            }
         });
+
+        this.addEmployeeActionButtonsEvents();
+    }
+
+    addEmployeeActionButtonsEvents = () =>
+    {
+        const rows = document.querySelectorAll('tr:not(#tbl-header-row)');
+        if (rows.length)
+        {
+            rows.forEach(row => row.addEventListener('click', this.rowAddClickActions));
+        }
+    }
+
+    rowAddClickActions = (event) =>
+    {
+        if (event.target.getAttribute("action") === "delete")
+        {
+            this.employeesManagerIU.deleteEmployee(event)
+        }
     }
 }   
