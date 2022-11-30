@@ -180,8 +180,6 @@ class IUManagerCore
             const employeesBypassedCorsContent = await employeesByPassCorsResult.json();
             const employeesResult = JSON.parse(employeesBypassedCorsContent.contents);
 
-
-            debugger
             employeesResult.employees.forEach(employee =>
             {
                 if (this.employeesManagerIU.addRemoteEmployee(employee))

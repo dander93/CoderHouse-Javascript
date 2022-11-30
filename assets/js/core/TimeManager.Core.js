@@ -8,7 +8,11 @@ class EmployeesTimeManager
         this.storageManager = this.storageManager || new LocalStorageManager()
     }
 
-    checkEmployeeHasTime = (id) => this.employeesTime.find(employee => employee.employeeID === id);
+    checkEmployeeHasTime = (id) =>
+    {
+        let storage = this.storageManager.getLocalStorageState();
+        return storage.employeesTime.some(employee => employee.employeeID === id);
+    }
 
     addEmployeeTime = (employeeTime) =>
     {
@@ -29,10 +33,10 @@ class EmployeesTimeManager
 
     getEmployeeTime = (id) =>
     {
-
+        let storage = this.storageManager.getLocalStorageState();
         const reduceFunction = (prev, current) => current.employeeID === id ? current.employeeTime + prev : prev;
 
-        return this.checkEmployeeHasTime(id) !== undefined ? this.employeesTime.reduce(reduceFunction, 0) : 0;
+        return this.checkEmployeeHasTime(id) !== undefined ? storage.employeesTime.reduce(reduceFunction, 0) : 0;
     }
 
     getAllEmployeesTime = () => this.employeesTime;

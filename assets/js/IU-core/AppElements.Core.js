@@ -30,7 +30,7 @@ class AppElements
             this.addIfNotExistInStorage(new MyHTMLElement("tbl-header-row", "tr", "tbl-header", null, null, null, null, false))
             this.addIfNotExistInStorage(new MyHTMLElement("id-employee-head", "th", "tbl-header-row", "ID Empleado", null, null, `scope="col"`, false))
             this.addIfNotExistInStorage(new MyHTMLElement("name-employee-head", "th", "tbl-header-row", "Nombre Empleado", null, null, `scope="col"`, false))
-            this.addIfNotExistInStorage(new MyHTMLElement("time-employee-head", "th", "tbl-header-row", "Tiempo Empleado", null, null, `scope="col"`, false))
+            this.addIfNotExistInStorage(new MyHTMLElement("time-employee-head", "th", "tbl-header-row", "Tiempo Mensual Empleado", null, null, `scope="col"`, false))
             this.addIfNotExistInStorage(new MyHTMLElement("actions-employee", "th", "tbl-header-row", "Acciones", null, null, `scope="col"`, false))
 
             //body tabla empleados

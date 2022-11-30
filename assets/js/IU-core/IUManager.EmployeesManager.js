@@ -80,7 +80,18 @@ class EmplyoeesManagerIU
 
     genEditEmployeeForm = (event) =>
     {
-        console.log("generado form para editar al empleado dinamicamente o ajax tal vez")
+
+        const employeeID = this.getEmployeeIDbyEventRow(event);
+
+        const modalElement = document.querySelector("#modal-edit-employee-id");
+        const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+        modalElement.setAttribute("data-employee-id", employeeID);
+
+        modalElement.querySelector("#editar-nombre-empleado-input").value = this.employeesManager.getEmployeeById(employeeID).employeeName;
+        modalElement.querySelector("#editar-horas-empleado-input").value = this.employeesTimeManager.getEmployeeTime(employeeID);
+
+        modal.show();
 
         this.editEmployee(event)
     }
@@ -88,10 +99,8 @@ class EmplyoeesManagerIU
 
     editEmployee = (event) =>
     {
-        const employeeID = this.getEmployeeIDbyEventRow(event);
 
-        this.employeesManager.getEmployeeInformationByID(employeeID);
 
-        console.log(`editando empleado: ${employeeID}`)
+        //console.log(`editando empleado: ${employee}`)
     }
 }
