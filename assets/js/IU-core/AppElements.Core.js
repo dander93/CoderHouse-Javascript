@@ -38,9 +38,13 @@ class AppElements
 
             //botones
             this.addIfNotExistInStorage(new MyHTMLElement("btn-container", "div", "mainEstructure", null, "container-md center", 5, null, false))
-            this.addIfNotExistInStorage(new MyHTMLElement("btn-add-employee", "button", "btn-container", "Agregar empleado", "btn btn-primary mx-2", 6, `data-bs-toggle="modal" data-bs-target="#staticBackdrop"`, false));
-            this.addIfNotExistInStorage(new MyHTMLElement("btn-borrar-storage", "button", "btn-container", "borrar storage", "btn btn-danger mx-2", 7, null, false));
-            this.addIfNotExistInStorage(new MyHTMLElement("btn-reload", "button", "btn-container", "Recargar", "btn link-info text-decoration-none", 10, null, false));
+            this.addIfNotExistInStorage(new MyHTMLElement("btn-add-employee", "button", "btn-container", "Agregar empleado", "btn btn-primary mx-2", 6, `data-bs-toggle="modal" data-bs-target="#modal-add-employee-id"`, false));
+
+            if (window.location.origin.indexOf("127.0.0.1"))
+            {
+                this.addIfNotExistInStorage(new MyHTMLElement("btn-borrar-storage", "button", "btn-container", "borrar storage", "btn btn-danger mx-2", 7, null, false));
+                this.addIfNotExistInStorage(new MyHTMLElement("btn-reload", "button", "btn-container", "Recargar", "btn link-info text-decoration-none", 10, null, false));
+            }
 
         }
     }

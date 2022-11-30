@@ -2,7 +2,7 @@ class EmplyoeesManagerIU
 {
 
     employeesManager;
-    employeesTimeManage;
+    employeesTimeManager;
 
     appElementsCore;
     iuManager;
@@ -33,6 +33,22 @@ class EmplyoeesManagerIU
         horasTrabajadasInput.value = '';
 
         this.genEmployeeHTML(empleado, totalHorasTrabajadas);
+    }
+
+    addRemoteEmployee = (remoteEmployee) =>
+    {
+        if (!this.employeesManager.employeeExistById(remoteEmployee.employeeID))
+        {
+            const empleado = this.employeesManager.addEmployee(remoteEmployee.employeeName, remoteEmployee.employeeID);
+            let horasTrabajadas = new EmployeeTime(remoteEmployee.employeeID, parseFloat(remoteEmployee.employeeTime))
+            let totalHorasTrabajadas = this.employeesTimeManager.addEmployeeTime(horasTrabajadas);
+
+            this.genEmployeeHTML(empleado, totalHorasTrabajadas);
+
+            return true;
+        }
+
+        return false;
     }
 
 

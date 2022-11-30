@@ -1,6 +1,9 @@
 class IUManagerCore
 {
 
+    pasteBinEmployeesFileName = "pasteBinCodesForEmployees";
+    pasteBinApiUrl = "https://api.allorigins.win/get?url=https://pastebin.com/raw";
+
     employeesManagerIU;
     employeesTimeManagerIU;
     messageHelper;
@@ -31,9 +34,9 @@ class IUManagerCore
 
         entryPoint.parentNode.replaceChild(estructure, entryPoint);
 
+        this.checkForDefaultEmployees();
+
         this.storageManager.setActualStorageState(storage);
-
-
     }
 
     createELement(elem)
@@ -73,7 +76,7 @@ class IUManagerCore
     {
         document.querySelector("#form-add-employee")?.addEventListener('submit', this.addEmployeeFormHandler);
 
-        document.querySelector("#btn-borrar-storage")?.addEventListener("click", () => window.localStorage.clear());
+        document.querySelector("#btn-borrar-storage")?.addEventListener("click", this.deleteLocalStorageButtonHandler);
 
         document.querySelector("#btn-reload")?.addEventListener("click", () => window.location.reload());
 
@@ -110,6 +113,12 @@ class IUManagerCore
         }
     }
 
+    deleteLocalStorageButtonHandler = (event) =>
+    {
+        window.localStorage.clear();
+        window.location.reload();
+    }
+
     rowAddClickActions = (event) =>
     {
         const actions = {
@@ -127,7 +136,7 @@ class IUManagerCore
 
         this.employeesManagerIU.addEmployee(event);
 
-        const modalElement = document.querySelector('#staticBackdrop');
+        const modalElement = document.querySelector('#modal-add-employee-id');
         const modal = bootstrap.Modal.getInstance(modalElement);
         modal.hide();
 
@@ -143,4 +152,64 @@ class IUManagerCore
             }
         }).showToast();
     }
+
+    checkForDefaultEmployees = async () =>
+    {
+        try
+        {
+            const pasteBinCodesResult = await fetch(`./${this.pasteBinEmployeesFileName}.json`);
+            const pasteBinCodes = await pasteBinCodesResult.json();
+
+            pasteBinCodes.pasteCodes.forEach(this.pasteCodesHandler);
+
+        }
+        catch (error)
+        {
+            console.error(`Error al obtener empleados de forma remota. ${error}`)
+        }
+    }
+
+    pasteCodesHandler = async code =>
+    {
+        try
+        {
+            let addedEmployees = 0;
+            const pasteUrl = `${this.pasteBinApiUrl}/${code}`;
+            const employeesByPassCorsResult = await fetch(pasteUrl);
+
+            const employeesBypassedCorsContent = await employeesByPassCorsResult.json();
+            const employeesResult = JSON.parse(employeesBypassedCorsContent.contents);
+
+
+            debugger
+            employeesResult.employees.forEach(employee =>
+            {
+                if (this.employeesManagerIU.addRemoteEmployee(employee))
+                {
+                    addedEmployees++;
+                }
+            });
+
+            if (addedEmployees)
+            {
+                Toastify({
+                    text: `Se agregaron ${addedEmployees} empleados de forma remota desde el pasteBin <a href="https://pastebin.com/raw/${code}" class="text-warning" target="_blank">${code}</a>`,
+                    duration: 5000,
+                    close: true,
+                    gravity: 'bottom',
+                    position: 'right',
+                    stopOnFocus: true,
+                    escapeMarkup: false,
+                    style: {
+                        background: "linear-gradient(90deg, rgba(2,0,36,0.7567401960784313) 0%, rgba(9,121,67,0.9556197478991597) 18%, rgba(7,138,102,1) 69%, rgba(0,212,255,0.8575805322128851) 100%);",
+                    }
+                }).showToast();
+            }
+        }
+        catch (error)
+        {
+            console.error(`Error al obtener los empleados del codigo: ${code}. ${error}`)
+        }
+    }
+
 }   

@@ -10,23 +10,31 @@ class EmployeesManager
 
     checkEmployeeExist = (id) => this.storageManager.employees.find(employee => employee.employeeID === id);
 
-    addEmployee = (employeeName) =>
+    addEmployee = (employeeName, employeeID) =>
     {
+
         let storage = this.storageManager.getLocalStorageState();
         let employee;
 
-        if (!storage.employees.some(storagedItem => storagedItem.employeeName === employeeName))
+        if (employeeID && employeeName)
         {
-            employee = new Employee(crypto.randomUUID(), employeeName, this.lastEmployee)
+            employee = this.getEmployeeById(employeeID);
+        }
+        else
+        {
+            employee = this.getEmployeeByname(employeeName);
+        }
+
+        if (!employee)
+        {
+            employee = new Employee(employeeID || crypto.randomUUID(), employeeName)
             storage.employees.push(employee);
-        } else
-        {
-            employee = storage.employees.find(storagedItem => storagedItem.employeeName === employeeName)
         }
 
         this.storageManager.setActualStorageState(storage);
         return employee;
     }
+
 
     deleteEmployee = (employeeID) =>
     {
@@ -46,22 +54,31 @@ class EmployeesManager
 
     }
 
-    getEmployeeInformationByID = (id) =>
+    employeeExistById(employeeID)
     {
-        const storage = this.storageManager.getLocalStorageState();
+        let storage = this.storageManager.getLocalStorageState();
 
-        let employee = storage.employees.find(employee => employee.employeeID === id);
-        let employeeTime = storage.employeesTime.find(employeeTime => employeeTime.employeeID === id)
-
-
-        let empleado = {
-            employeeID: employee.employeeID,
-            employeeName: employee.employeeName,
-            employeeTime: employeeTime.employeeTime
-        }
-
-        console.log(empleado)
+        return storage.employees.some(storagedItem => storagedItem.employeeID === employeeID)
     }
+
+    employeeExistByName(employeeName)
+    {
+        let storage = this.storageManager.getLocalStorageState();
+        return storage.employees.some(storagedItem => storagedItem.employeeName === employeeName)
+    }
+
+    getEmployeeById(employeeID)
+    {
+        let storage = this.storageManager.getLocalStorageState();
+        return storage.employees.find(storagedItem => storagedItem?.employeeID === employeeID)
+    }
+
+    getEmployeeByname(employeeName)
+    {
+        let storage = this.storageManager.getLocalStorageState();
+        return storage.employees.find(storagedItem => storagedItem?.employeeName === employeeName)
+    }
+
 
 
     getEmployeesList = () => JSON.parse(this.storageManager.getLocalStorageState().employees);
