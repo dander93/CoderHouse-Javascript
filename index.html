@@ -96,14 +96,14 @@
 
                     <form id="form-edit-employee" class="form needs-validation" method="post">
                         <div class="modal-header">
-                            <h4 class="modal-title fs-5" id="title-modal-edit-employee">Editando Empleado:</h4>
+                            <h4 class="modal-title fs-5" id="title-modal-edit-employee"></h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
                             <div class="form-floating">
                                 <input id="editar-nombre-empleado-input" class="form-control" name="editar-nombre-empleado" type="text"
-                                       placeholder="Nombre del empleado" minlength="4" value="" required />
+                                       placeholder="Nombre del empleado" minlength="4" required />
                                 <label id="lbl-editar-nombre-empleado-input" for="editar-nombre-empleado-input" class="form-label">
                                     Editar Nombre Empleado
                                 </label>
@@ -111,7 +111,7 @@
                             <br />
                             <div class="form-floating">
                                 <input id="editar-horas-empleado-input" class="form-control" name="editar-horas-empleado" type="number"
-                                       placeholder="Horas que trabajó el empleado" min="0" max="120" value="" required />
+                                       placeholder="Horas que trabajó el empleado" step="0.1" required />
                                 <label id="lbl-editar-horas-empleado-input" for="editar-horas-empleado-input" class="form-label">
                                     Editar Horas Empleado
                                 </label>

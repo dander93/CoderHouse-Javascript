@@ -51,7 +51,6 @@ class EmplyoeesManagerIU
         return false;
     }
 
-
     getEmployeeIDbyEventRow = (event) => event.target.parentElement.parentElement.getAttribute("employee-id");
 
     deleteEmployee = (event) =>
@@ -60,6 +59,19 @@ class EmplyoeesManagerIU
 
         this.employeesManager.deleteEmployee(employeeID);
         this.removeEmployeeHTMLByID(employeeID);
+
+        Toastify({
+            text: `Empleado borrado con exito`,
+            duration: 5000,
+            close: true,
+            gravity: 'bottom',
+            position: 'right',
+            stopOnFocus: true,
+            escapeMarkup: false,
+            style: {
+                background: "linear-gradient(90deg, #ff2f2f 0%, #822f2f 100%)"
+            }
+        }).showToast();
     }
 
     genEmployeeHTML = (empleado, horasTrabajadas) =>
@@ -72,7 +84,7 @@ class EmplyoeesManagerIU
 
         //acciones DUMMY
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`actions-container-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, null, null, null, null, false));
-        this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-edit-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Agregar Horas", "btn btn-warning", null, `action="edit"`, false));
+        this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-edit-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Editar", "btn btn-warning", null, `action="edit"`, false));
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-delete-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Borrar", "btn btn-danger mx-1", null, `action="delete"`, false));
     }
 
@@ -86,21 +98,48 @@ class EmplyoeesManagerIU
         const modalElement = document.querySelector("#modal-edit-employee-id");
         const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
 
-        modalElement.setAttribute("data-employee-id", employeeID);
+        modalElement.querySelector("FORM").setAttribute("data-employee-id", employeeID);
 
-        modalElement.querySelector("#editar-nombre-empleado-input").value = this.employeesManager.getEmployeeById(employeeID).employeeName;
+        const employeeName = this.employeesManager.getEmployeeById(employeeID).employeeName;
+
+        modalElement.querySelector("#title-modal-edit-employee").innerText = `Editando empleado: ${employeeName}`
+        modalElement.querySelector("#editar-nombre-empleado-input").value = employeeName
         modalElement.querySelector("#editar-horas-empleado-input").value = this.employeesTimeManager.getEmployeeTime(employeeID);
 
         modal.show();
-
-        this.editEmployee(event)
     }
 
 
     editEmployee = (event) =>
     {
+        const modalElement = event.target.parentElement.parentElement.parentElement;
+        const modal = bootstrap.Modal.getInstance(modalElement);
 
+        const newValueTime = modalElement.querySelector("#editar-horas-empleado-input").value;
+        const newValueName = modalElement.querySelector("#editar-nombre-empleado-input").value;
 
-        //console.log(`editando empleado: ${employee}`)
+        const employeeID = event.target.getAttribute("data-employee-id");
+
+        let editado = this.employeesManager.editEmployee(employeeID, newValueName, parseFloat(newValueTime))
+
+        modal.hide();
+        event.target.setAttribute("data-employee-id", "");
+
+        if (editado)
+        {
+            Toastify({
+                text: `Empleado editado con exito`,
+                duration: 5000,
+                close: true,
+                gravity: 'bottom',
+                position: 'right',
+                stopOnFocus: true,
+                escapeMarkup: false,
+                style: {
+                    background: "linear-gradient(90deg, #28c906 0%, #289706 100%)"
+                }
+            }).showToast();
+        }
+
     }
 }

@@ -2,10 +2,13 @@ class EmployeesManager
 {
 
     storageManager;
+    timeManager;
 
     constructor()
     {
-        this.storageManager = this.storageManager || new LocalStorageManager()
+        this.storageManager = this.storageManager || new LocalStorageManager();
+        this.timeManager = this.timeManager || new EmployeesTimeManager();
+
     }
 
     checkEmployeeExist = (id) => this.storageManager.employees.find(employee => employee.employeeID === id);
@@ -47,11 +50,39 @@ class EmployeesManager
         this.storageManager.setActualStorageState(storage)
     }
 
-    editEmployee = (employeeID) =>
+    editEmployee = (employeeID, newNameValue, newTimeValue) =>
     {
-        let storage = this.storageManager.getLocalStorageState();
+        const prevTimeValue = this.timeManager.getEmployeeTime(employeeID);
+        const employee = this.getEmployeeById(employeeID);
+
+        if (employee.employeeName != newNameValue || prevTimeValue != newTimeValue)
+        {
+
+            let storage = this.storageManager.getLocalStorageState();
+            storage.employees[storage.employees.findIndex(employee => employee.employeeID === employeeID)].employeeName = newNameValue;
+
+            storage.htmlElements.forEach(element =>
+            {
+                if (element.id == `hours-employee-${employeeID}`)
+                {
+                    element.text = newTimeValue;
+                }
+
+                if (element.id == `name-employee-${employeeID}`)
+                {
+                    element.text = newNameValue;
+                }
+            });
+            this.storageManager.setActualStorageState(storage);
 
 
+            this.timeManager.removeEmployeeTimeByID(employeeID);
+            this.timeManager.addEmployeeTime(new EmployeeTime(employeeID, newTimeValue));
+
+            return true;
+        }
+
+        return false;
     }
 
     employeeExistById(employeeID)

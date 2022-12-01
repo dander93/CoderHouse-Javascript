@@ -36,9 +36,13 @@ class EmployeesTimeManager
         let storage = this.storageManager.getLocalStorageState();
         const reduceFunction = (prev, current) => current.employeeID === id ? current.employeeTime + prev : prev;
 
-        return this.checkEmployeeHasTime(id) !== undefined ? storage.employeesTime.reduce(reduceFunction, 0) : 0;
+        return this.checkEmployeeHasTime(id) ? storage.employeesTime.reduce(reduceFunction, 0) : 0;
     }
 
-    getAllEmployeesTime = () => this.employeesTime;
-
+    removeEmployeeTimeByID(id)
+    {
+        let storage = this.storageManager.getLocalStorageState();
+        storage.employeesTime = storage.employeesTime.filter(employee => employee.employeeID !== id);
+        this.storageManager.setActualStorageState(storage);
+    }
 }

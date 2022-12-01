@@ -76,6 +76,8 @@ class IUManagerCore
     {
         document.querySelector("#form-add-employee")?.addEventListener('submit', this.addEmployeeFormHandler);
 
+        document.querySelector("#form-edit-employee")?.addEventListener('submit', this.editEmployeeFormHandler);
+
         document.querySelector("#btn-borrar-storage")?.addEventListener("click", this.deleteLocalStorageButtonHandler);
 
         document.querySelector("#btn-reload")?.addEventListener("click", () => window.location.reload());
@@ -148,9 +150,16 @@ class IUManagerCore
             position: 'right',
             stopOnFocus: true,
             style: {
-                background: "linear-gradient(90deg, rgba(2,0,36,0.7567401960784313) 0%, rgba(9,121,67,0.9556197478991597) 18%, rgba(7,138,102,1) 69%, rgba(0,212,255,0.8575805322128851) 100%);",
+                background: "linear-gradient(90deg, #392fff 0%, #392f82 100%)",
             }
         }).showToast();
+    }
+
+    editEmployeeFormHandler = (event) =>
+    {
+        event.preventDefault();
+
+        this.employeesManagerIU.editEmployee(event);
     }
 
     checkForDefaultEmployees = async () =>
@@ -199,7 +208,7 @@ class IUManagerCore
                     stopOnFocus: true,
                     escapeMarkup: false,
                     style: {
-                        background: "linear-gradient(90deg, rgba(2,0,36,0.7567401960784313) 0%, rgba(9,121,67,0.9556197478991597) 18%, rgba(7,138,102,1) 69%, rgba(0,212,255,0.8575805322128851) 100%);",
+                        background: "linear-gradient(90deg, #392fff 0%, #392f82 100%)",
                     }
                 }).showToast();
             }
