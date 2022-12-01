@@ -127,6 +127,9 @@ class EmplyoeesManagerIU
 
         if (editado)
         {
+            document.querySelector(`#name-employee-${employeeID}`).innerText = newValueName;
+            document.querySelector(`#hours-employee-${employeeID}`).innerText = newValueTime;
+
             Toastify({
                 text: `Empleado editado con exito`,
                 duration: 5000,
@@ -139,6 +142,7 @@ class EmplyoeesManagerIU
                     background: "linear-gradient(90deg, #28c906 0%, #289706 100%)"
                 }
             }).showToast();
+
         }
 
     }
