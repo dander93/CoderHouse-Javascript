@@ -82,7 +82,6 @@ class EmplyoeesManagerIU
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`name-employee-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, empleado.employeeName, null, null, null, false));
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`hours-employee-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, horasTrabajadas, null, null, null, false));
 
-        //acciones DUMMY
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`actions-container-${empleado.employeeID}`, "td", `tr-employee-${empleado.employeeID}`, null, null, null, null, false));
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-edit-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Editar", "btn btn-warning", null, `action="edit"`, false));
         this.appElementsCore.addIfNotExistInStorage(new MyHTMLElement(`btn-action-delete-employee-${empleado.employeeID}`, "button", `actions-container-${empleado.employeeID}`, "Borrar", "btn btn-danger mx-1", null, `action="delete"`, false));
